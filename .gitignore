@@ -1,0 +1,5 @@
+Uber-Client/.gradle/
+Uber-Client/.idea/
+Uber-Client/build/
+Uber-Client/src/main/resources/uber.properties
+Uber-Client/gradle/

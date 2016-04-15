@@ -25,8 +25,17 @@ public class UberClientUtil {
     private static final String SERVER_KEY;
     private static final String BASE_URL;
     private static final Integer RATE_LIMIT;
-    private static final Retrofit retrofit;
+    private Retrofit retrofit;
     private static Logger logger= LoggerFactory.getLogger(UberClientUtil.class);
+
+    public UberClientUtil() {
+        //Nothing for now but future integration may require authentication tokens
+        retrofit= new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+    }
+
     // Static Initializer for few of the final constants
     static {
         ResourceBundle rb=ResourceBundle.getBundle("uber");
@@ -34,10 +43,6 @@ public class UberClientUtil {
         BASE_URL=rb.getString("uber_endpoint");
         RATE_LIMIT=Integer.parseInt(rb.getString("rate_limit"));
 
-        retrofit= new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
     }
 
     /**
@@ -47,12 +52,12 @@ public class UberClientUtil {
      * @param invokeWithRateLimit Apply Rate limiting
      * @return A list of Prices per request
      */
-    public static List<PricesResult> getPriceRequests(List<Map<String,String>> priceRequestList,boolean invokeWithRateLimit){
+    public  List<PricesResult> getPriceRequests(List<Map<String,String>> priceRequestList,boolean invokeWithRateLimit){
         if(invokeWithRateLimit){
-        return invokeWithRateLimit(UberClientUtil::getPriceRequest,priceRequestList);
+        return invokeWithRateLimit(this::getPriceRequest,priceRequestList);
         }
         else{
-           return invokeWithoutRateLimit(UberClientUtil::getPriceRequest,priceRequestList);
+           return invokeWithoutRateLimit(this::getPriceRequest,priceRequestList);
         }
 
 
@@ -68,7 +73,7 @@ public class UberClientUtil {
      * @param <V> Type of Value in Map
      * @return A list with object type <V>
      */
-    private static <R,K,V> List<R> invokeWithoutRateLimit(Function<Map,R> method, List<Map<K,V>> inputList) {
+    private  <R,K,V> List<R> invokeWithoutRateLimit(Function<Map,R> method, List<Map<K,V>> inputList) {
        List<R> returnList=new ArrayList<>();
        inputList.stream().forEach(m->{returnList.add(method.apply(m)); });
        return returnList;
@@ -84,7 +89,7 @@ public class UberClientUtil {
      * @param <V> Type of Value in Map
      * @return A list with object type <V>
      */
-    private static  <R,K,V> List<R> invokeWithRateLimit(Function<Map,R> method,List<Map<K,V>> inputList){
+    private   <R,K,V> List<R> invokeWithRateLimit(Function<Map,R> method,List<Map<K,V>> inputList){
         List<R> returnList=new ArrayList<>();
         Observable.zip(Observable.from(inputList),
                 Observable.interval(RATE_LIMIT, TimeUnit.SECONDS), (obs,timer)->obs)
@@ -102,7 +107,7 @@ public class UberClientUtil {
      * @param priceRequestParameters A map of the GET request parameters
      * @return
      */
-    public static PricesResult getPriceRequest(Map<String,Float> priceRequestParameters ){
+    public  PricesResult getPriceRequest(Map<String,Float> priceRequestParameters ){
         UberService uberService= retrofit.create(UberService.class);
         Float startLatitude=priceRequestParameters.get("startLatitude");
         Float startLongitude=priceRequestParameters.get("startLongitude");

@@ -20,7 +20,8 @@ public class Invoker {
         requestPrice.put("endLatitude",41.71f);
         requestPrice.put("endLongitude",-74.08f);
         list.add(requestPrice);
-        List<PricesResult> pricesResults=UberClientUtil.getPriceRequests(list, true);
+        UberClientUtil clientUtil=new UberClientUtil();
+        List<PricesResult> pricesResults=clientUtil.getPriceRequests(list, true);
         pricesResults.stream().forEach((PricesResult p)->{
             p.getPrices().stream().
                     forEach((Price price) -> System.out.println("price = " + price));

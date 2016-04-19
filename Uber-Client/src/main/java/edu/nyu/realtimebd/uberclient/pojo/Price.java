@@ -2,6 +2,8 @@ package edu.nyu.realtimebd.uberclient.pojo;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
+
 /**
  * Created by Ramandeep Singh on 11-04-2016.
    This class contains the attributes that are returned by price endpoint of Uber API
@@ -27,6 +29,15 @@ public class Price {
     @SerializedName("currency_code")
     private String currencyCode;
     private Float distance;
+    private Date currentDate;
+
+    public Date getCurrentDate() {
+        return currentDate;
+    }
+
+    public void setCurrentDate(Date currentDate) {
+        this.currentDate = currentDate;
+    }
 
     public String getLocalizedDisplayName() {
         return localizedDisplayName;

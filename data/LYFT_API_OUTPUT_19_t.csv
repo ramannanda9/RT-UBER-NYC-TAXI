@@ -1,0 +1,16 @@
+rideType,displayName,currency,minCostCent,maxCostCent,journeyDuration,distanceMiles,primeTimeConfirmationToken,primeTimePercentage,currentDate
+lyft_plus,Lyft Plus,USD,1288,1744,810,3.28,,0%,Tue Apr 19 00:23:21 EDT 2016
+lyft_line,Lyft Line,USD,523,523,810,3.28,,0%,Tue Apr 19 00:23:21 EDT 2016
+lyft,Lyft,USD,889,1203,810,3.28,,0%,Tue Apr 19 00:23:21 EDT 2016
+lyft_plus,Lyft Plus,USD,1325,1793,847,3.4,,0%,Tue Apr 19 00:23:24 EDT 2016
+lyft_line,Lyft Line,USD,537,537,847,3.4,,0%,Tue Apr 19 00:23:24 EDT 2016
+lyft,Lyft,USD,912,1236,847,3.4,,0%,Tue Apr 19 00:23:24 EDT 2016
+lyft_plus,Lyft Plus,USD,1330,1800,851,3.42,,0%,Tue Apr 19 00:23:25 EDT 2016
+lyft_line,Lyft Line,USD,539,539,851,3.42,,0%,Tue Apr 19 00:23:25 EDT 2016
+lyft,Lyft,USD,916,1240,851,3.42,,0%,Tue Apr 19 00:23:25 EDT 2016
+lyft_plus,Lyft Plus,USD,1335,1807,872,3.4,,0%,Tue Apr 19 00:23:26 EDT 2016
+lyft_line,Lyft Line,USD,542,542,872,3.4,,0%,Tue Apr 19 00:23:26 EDT 2016
+lyft,Lyft,USD,921,1247,872,3.4,,0%,Tue Apr 19 00:23:26 EDT 2016
+lyft_plus,Lyft Plus,USD,1288,1744,802,3.3,,0%,Tue Apr 19 00:23:27 EDT 2016
+lyft_line,Lyft Line,USD,522,522,802,3.3,,0%,Tue Apr 19 00:23:27 EDT 2016
+lyft,Lyft,USD,888,1202,802,3.3,,0%,Tue Apr 19 00:23:27 EDT 2016

@@ -2,6 +2,8 @@ package edu.nyu.realtimebd.lyftclient.pojo;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
+
 /**
  * Created by Ramandeep Singh on 14-04-2016.
  */
@@ -23,6 +25,15 @@ public class CostEstimate {
     private String primeTimeConfirmationToken;
     @SerializedName("primetime_percentage")
     private String primeTimePercentage;
+    private Date currentDate;
+
+    public Date getCurrentDate() {
+        return currentDate;
+    }
+
+    public void setCurrentDate(Date currentDate) {
+        this.currentDate = currentDate;
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -1,0 +1,6 @@
+rootProject.name = 'QueryAPIAndStoreCSV'
+include ':Lyft-Client'
+project(':Lyft-Client').projectDir=new File("../Lyft-Client")
+include ':UberAPIIntegration'
+project(':UberAPIIntegration').projectDir=new File("../Uber-Client")
+

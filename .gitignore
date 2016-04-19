@@ -9,3 +9,8 @@ Lyft-Client/build/
 Lyft-Client/gradle/
 Lyft-Client/src/main/resources/lyft.properties
 Lyft-Client/src/test/resources/lyft.properties
+QueryAPIAndStoreCSV/.gradle/
+Lyft-Client/Lyft-Client.iml
+QueryAPIAndStoreCSV/.idea/
+QueryAPIAndStoreCSV/build/
+QueryAPIAndStoreCSV/gradle/

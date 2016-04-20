@@ -15,7 +15,7 @@ task sourcesJar(type:Jar,dependsOn:classes){
 }
 jar {
     manifest {
-        attributes "Main-Class": "edu.nyu.reatltimebd.datautil.util.Invoker"
+        attributes "Main-Class": "edu.nyu.realtimebd.datautil.util.Invoker"
     }
 
     from {

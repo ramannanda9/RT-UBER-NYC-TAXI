@@ -124,7 +124,9 @@ public class Invoker {
         if(!single){
            for(Future future:futures){
                try {
-                   future.get();
+                   if(future!=null) {
+                       future.get();
+                   }
                } catch (InterruptedException e) {
                    e.printStackTrace();
                } catch (ExecutionException e) {

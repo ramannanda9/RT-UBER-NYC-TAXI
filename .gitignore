@@ -14,3 +14,13 @@ Lyft-Client/Lyft-Client.iml
 QueryAPIAndStoreCSV/.idea/
 QueryAPIAndStoreCSV/build/
 QueryAPIAndStoreCSV/gradle/
+nyc-yellow-taxi-analytics/bin/
+nyc-yellow-taxi-analytics/.settings/org.eclipse.core.resources.prefs
+Uber-Client/Uber-Client.iml
+nyc-yellow-taxi-analytics/.cache-main
+nyc-yellow-taxi-analytics/.classpath
+nyc-yellow-taxi-analytics/.project
+nyc-yellow-taxi-analytics/metastore_db/
+nyc-yellow-taxi-analytics/project/target/config-classes/
+nyc-yellow-taxi-analytics/target/
+nyc-yellow-taxi-analytics/derby.log

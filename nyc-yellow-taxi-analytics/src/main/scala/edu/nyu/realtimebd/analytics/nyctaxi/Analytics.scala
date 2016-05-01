@@ -54,7 +54,7 @@ object Analytics {
     return df
   }
   def preprocessFeatures(df: DataFrame): DataFrame = {
-    val stringColumns = Array("store_and_fwd_flag","ratecodeid")
+    val stringColumns = Array("store_and_fwd_flag", "ratecodeid")
     var indexModel: PipelineModel = null;
     var oneHotModel: PipelineModel = null;
     try {
@@ -100,7 +100,7 @@ object Analytics {
   def buildPriceAnalysisModel(query: String) {
     initializeDataFrame(query)
     var df_indexed = preprocessFeatures(df)
-     df_indexed.columns.foreach(x => println("Preprocessed Columns Model Training"+x)  )
+    df_indexed.columns.foreach(x => println("Preprocessed Columns Model Training" + x))
     val df_splitData: Array[DataFrame] = df_indexed.randomSplit(Array(0.7, 0.3), 11l)
     val trainData = df_splitData(0)
     val testData = df_splitData(1)
@@ -117,7 +117,7 @@ object Analytics {
     val trainDataFin = trainDataTemp.select("features", "label")
     val testDataFin = testDataTemp.select("features")
     val linearRegression = new LinearRegression()
-    trainDataFin.columns.foreach(x=>println("Final Column =>"+x))
+    trainDataFin.columns.foreach(x => println("Final Column =>" + x))
     trainDataFin.take(1)
     //Params for tuning the model.
     val paramGridMap = new ParamGridBuilder()
@@ -176,12 +176,12 @@ object Analytics {
     val row = sc.parallelize(rows)
     var dfStructure = sqlContext.createDataFrame(row, schema)
     var preprocessed = preprocessFeatures(dfStructure)
-    preprocessed.columns.foreach(x => println("Preprocessed Columns "+x)  )
+    preprocessed.columns.foreach(x => println("Preprocessed Columns " + x))
     val vectorAssembler = new VectorAssembler().
       setInputCols(preprocessed.columns).setOutputCol("features")
     preprocessed = vectorAssembler.transform(preprocessed)
     var results = nycModel.transform(preprocessed.select("features"))
-    results 
+    results
   }
-  
+
 }

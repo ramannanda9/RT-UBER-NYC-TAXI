@@ -29,13 +29,13 @@ public class Price {
     @SerializedName("currency_code")
     private String currencyCode;
     private Float distance;
-    private Date currentDate;
+    private String currentDate;
 
-    public Date getCurrentDate() {
+    public String getCurrentDate() {
         return currentDate;
     }
 
-    public void setCurrentDate(Date currentDate) {
+    public void setCurrentDate(String currentDate) {
         this.currentDate = currentDate;
     }
 

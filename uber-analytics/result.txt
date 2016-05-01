@@ -1,0 +1,63 @@
+UBER-Both-PRODUCTS
+
+R-Squared= 0.9143368061198499
+Explained Variance=411.5783
+MAE= 4.071809770836617
+
+UBER X
+
+second
+(elasticNetParam, ,linReg_40206884bf31__elasticNetParam)(featuresCol, ,linReg_40206884bf31__featuresCol)(fitIntercept, ,linReg_40206884bf31__fitIntercept)(labelCol, ,linReg_40206884bf31__labelCol)(maxIter, ,linReg_40206884bf31__maxIter)(predictionCol, ,linReg_40206884bf31__predictionCol)(regParam, ,linReg_40206884bf31__regParam)(standardization, ,linReg_40206884bf31__standardization)(tol, ,linReg_40206884bf31__tol)
+R-Squared= 0.9477211362553746
+Explained Variance=181.94054920792712
+MAE= 1.7727137196045952
+
+UBER BLack
+
+(elasticNetParam, ,linReg_0e334938f084__elasticNetParam)(featuresCol, ,linReg_0e334938f084__featuresCol)(fitIntercept, ,linReg_0e334938f084__fitIntercept)(labelCol, ,linReg_0e334938f084__labelCol)(maxIter, ,linReg_0e334938f084__maxIter)(predictionCol, ,linReg_0e334938f084__predictionCol)(regParam, ,linReg_0e334938f084__regParam)(standardization, ,linReg_0e334938f084__standardization)(tol, ,linReg_0e334938f084__tol)
+R-Squared= 0.9837072670071181
+Explained Variance=577.705194631438
+MAE= 1.4641729361103437
+
+
+testData: scala.collection.mutable.ListBuffer[UberParams] = ListBuffer()
+res24: testData.type = ListBuffer(UberParams(600,uberX,1.2,10.6,10,2,33))
+duration
+surge_multiplier
+distance
+hour
+minute
+second
+name_index_vect
+(elasticNetParam, ,linReg_ff0e132ff5b7__elasticNetParam)(featuresCol, ,linReg_ff0e132ff5b7__featuresCol)(fitIntercept, ,linReg_ff0e132ff5b7__fitIntercept)(labelCol, ,linReg_ff0e132ff5b7__labelCol)(maxIter, ,linReg_ff0e132ff5b7__maxIter)(predictionCol, ,linReg_ff0e132ff5b7__predictionCol)(regParam, ,linReg_ff0e132ff5b7__regParam)(standardization, ,linReg_ff0e132ff5b7__standardization)(tol, ,linReg_ff0e132ff5b7__tol)R-Squared= 0.9143368061198499
+Explained Variance=411.57832468042676
+MAE= 4.071809770836617
+elasticNetParam: the ElasticNet mixing parameter, in range [0, 1]. For alpha = 0, the penalty is an L2 penalty. For alpha = 1, it is an L1 penalty. (default: 0.0)
+featuresCol: features column name (default: features)
+fitIntercept: whether to fit an intercept term (default: true)
+labelCol: label column name (default: label)
+maxIter: maximum number of iterations (>= 0) (default: 100, current: 100)
+predictionCol: prediction column name (default: prediction)
+regParam: regularization parameter (>= 0) (default: 0.0, current: 0.001)
+standardization: whether to standardize the training features before fitting the model. (default: true)
+tol: the convergence tolerance for iterative algorithms (default: 1.0E-6)
+[0.008560646496425475,19.24809817247926,3.340629658509193,-0.04271254417713973,-0.0014444155613885163,0.0029938744402927195,-18.59171739545286]
++-------+--------+------------------+--------------------+----+------+------+
+|summary|duration|  surge_multiplier|            distance|hour|minute|second|
++-------+--------+------------------+--------------------+----+------+------+
+|  count|       1|                 1|                   1|   1|     1|     1|
+|   mean|   600.0|1.2000000476837158|  10.600000381469727|10.0|   2.0|  10.0|
+| stddev|     0.0|               NaN|3.906248137354407E-4| 0.0|   0.0|   0.0|
+|    min|     600|               1.2|                10.6|  10|     2|    10|
+|    max|     600|               1.2|                10.6|  10|     2|    10|
++-------+--------+------------------+--------------------+----+------+------+
+result: org.apache.spark.sql.DataFrame = [duration: int, surge_multiplier: float, distance: float, hour: int, minute: int, second: int, name_index_vect: vector, features: vector, prediction: double]
++-------+--------+------------------+--------------------+----+------+------+-----------------+
+|summary|duration|  surge_multiplier|            distance|hour|minute|second|       prediction|
++-------+--------+------------------+--------------------+----+------+------+-----------------+
+|  count|       1|                 1|                   1|   1|     1|     1|                1|
+|   mean|   600.0|1.2000000476837158|  10.600000381469727|10.0|   2.0|  10.0|39.23548503958983|
+| stddev|     0.0|               NaN|3.906248137354407E-4| 0.0|   0.0|   0.0|              0.0|
+|    min|     600|               1.2|                10.6|  10|     2|    10|39.23548503958983|
+|    max|     600|               1.2|                10.6|  10|     2|    10|39.23548503958983|
++-------+--------+------------------+--------------------+----+------+------+-----------------+

@@ -25,13 +25,13 @@ public class CostEstimate {
     private String primeTimeConfirmationToken;
     @SerializedName("primetime_percentage")
     private String primeTimePercentage;
-    private Date currentDate;
+    private String currentDate;
 
-    public Date getCurrentDate() {
+    public String getCurrentDate() {
         return currentDate;
     }
 
-    public void setCurrentDate(Date currentDate) {
+    public void setCurrentDate(String currentDate) {
         this.currentDate = currentDate;
     }
 

@@ -1,0 +1,53 @@
+R-Squared= 0.954496421456682
+MAE= 1.1704343793855545
+
+testDataNYC: scala.collection.mutable.ListBuffer[NYCParams] = ListBuffer()
+res65: scala.collection.mutable.ListBuffer[NYCParams] = ListBuffer(NYCParams(10.6,600.0,N,1.0,10,2,33))
+resultNYC: org.apache.spark.sql.DataFrame = null
+Preprocessed Columns Model Trainingtrip_distance
+Preprocessed Columns Model Trainingduration
+Preprocessed Columns Model Trainingstart_hour
+Preprocessed Columns Model Trainingstart_minute
+Preprocessed Columns Model Trainingstart_second
+Preprocessed Columns Model Trainingfare_amount
+Preprocessed Columns Model Trainingstore_and_fwd_flag_index_vect
+Preprocessed Columns Model Trainingratecodeid_index_vect
+trip_distance
+duration
+start_hour
+start_minute
+start_second
+store_and_fwd_flag_index_vect
+ratecodeid_index_vect
+Final Column =>features
+Final Column =>label
+R-Squared= 0.954496421456682
+Explained Variance=107.26477283912962
+MAE= 1.1704343793855545
+elasticNetParam: the ElasticNet mixing parameter, in range [0, 1]. For alpha = 0, the penalty is an L2 penalty. For alpha = 1, it is an L1 penalty. (default: 0.0)
+featuresCol: features column name (default: features)
+fitIntercept: whether to fit an intercept term (default: true)
+labelCol: label column name (default: label)
+maxIter: maximum number of iterations (>= 0) (default: 100, current: 10)
+predictionCol: prediction column name (default: prediction)
+regParam: regularization parameter (>= 0) (default: 0.0, current: 0.01)
+standardization: whether to standardize the training features before fitting the model. (default: true)
+tol: the convergence tolerance for iterative algorithms (default: 1.0E-6)
+[2.5610808134421994,3.662783141156679E-5,-0.03672107558078764,2.4691795848807887E-4,-5.75336131182051E-4,-0.1224932566529349,-7.924603902379604,-4.201139571516581,9.587738483926406,25.79283488390158]
+Preprocessed Columns trip_distance
+Preprocessed Columns duration
+Preprocessed Columns start_hour
+Preprocessed Columns start_minute
+Preprocessed Columns start_second
+Preprocessed Columns store_and_fwd_flag_index_vect
+Preprocessed Columns ratecodeid_index_vect
+resultNYC: org.apache.spark.sql.DataFrame = [features: vector, prediction: double]
++-------+------------------+
+|summary|        prediction|
++-------+------------------+
+|  count|                 1|
+|   mean|31.146162583102516|
+| stddev|               0.0|
+|    min|31.146162583102516|
+|    max|31.146162583102516|
++-------+------------------+

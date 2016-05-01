@@ -1,0 +1,67 @@
+ONLY LYFT product type
+
+R-Squared= 0.9400926925393636
+Explained Variance=114.66378349916253
+MAE= 1.6177876183027677
+
+ALL-VEHICLES
+
+R-Squared= 0.8999323328420334
+Explained Variance=180.64332708066482
+MAE= 2.481159932118107
+
+
+
+
+testData: scala.collection.mutable.ListBuffer[LyftParams] = ListBuffer()
+res17: testData.type = ListBuffer(LyftParams(Lyft,600,10.6,120.0,10,2,33))
+duration
+distance
+primetime
+hour
+minute
+second
+name_index_vect
+Final Column =>features
+Final Column =>label
+(elasticNetParam, ,linReg_ff0451d8db59__elasticNetParam)
+(featuresCol, ,linReg_ff0451d8db59__featuresCol)
+(fitIntercept, ,linReg_ff0451d8db59__fitIntercept)
+(labelCol, ,linReg_ff0451d8db59__labelCol)
+(maxIter, ,linReg_ff0451d8db59__maxIter)
+(predictionCol, ,linReg_ff0451d8db59__predictionCol)
+(regParam, ,linReg_ff0451d8db59__regParam)
+(standardization, ,linReg_ff0451d8db59__standardization)
+(tol, ,linReg_ff0451d8db59__tol)
+R-Squared= 0.8999323328420334
+Explained Variance=180.64332708066482
+MAE= 2.481159932118107
+elasticNetParam: the ElasticNet mixing parameter, in range [0, 1]. For alpha = 0, the penalty is an L2 penalty. For alpha = 1, it is an L1 penalty. (default: 0.0)
+featuresCol: features column name (default: features)
+fitIntercept: whether to fit an intercept term (default: true)
+labelCol: label column name (default: label)
+maxIter: maximum number of iterations (>= 0) (default: 100, current: 100)
+predictionCol: prediction column name (default: prediction)
+regParam: regularization parameter (>= 0) (default: 0.0, current: 0.001)
+standardization: whether to standardize the training features before fitting the model. (default: true)
+tol: the convergence tolerance for iterative algorithms (default: 1.0E-6)
+[0.00584400983214814,2.6208374174065523,0.14349378904721483,-0.016558623849301898,-0.0013445142555362556,0.002964490773769578,9.240610056972978,0.9368382310390643]
+res75: testData.type = ListBuffer(LyftParams(Lyft,600,10.6,20.0,10,2,33))
++-------+--------+--------------------+---------+----+------+------+
+|summary|duration|            distance|primetime|hour|minute|second|
++-------+--------+--------------------+---------+----+------+------+
+|  count|       1|                   1|        1|   1|     1|     1|
+|   mean|   600.0|  10.600000381469727|     20.0|10.0|   2.0|  10.0|
+| stddev|     0.0|3.906248137354407E-4|      0.0| 0.0|   0.0|   0.0|
+|    min|     600|                10.6|     20.0|  10|     2|    10|
+|    max|     600|                10.6|     20.0|  10|     2|    10|
++-------+--------+--------------------+---------+----+------+------+
+result: org.apache.spark.sql.DataFrame = [features: vector, prediction: double]
++-------+-----------------+
+|summary|       prediction|
++-------+-----------------+
+|  count|                1|
+|   mean|34.92439968727799|
+| stddev|              0.0|
+|    min|34.92439968727799|
+|    max|34.92439968727799|

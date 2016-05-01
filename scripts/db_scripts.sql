@@ -29,3 +29,15 @@ as rownumb from nyc_taxi_data where cast(tpep_pickup_datetime as timestamp) betw
 
 #export the new table to query the uber and lyft API
 impala-shell -B -o data_limited_new.csv --output_delimiter="," --print_header -q "select * from nyc_taxi_data_limited order by cast(journey_start_time as timestamp)";
+
+
+create external table lyft (ridetype string, displayname string, currency string, minCostCent int, maxCostCent int, journeyduration int,
+distanceMiles float, primeTimePercentage string,currentDate timestamp)
+row format delimited fields terminated by ','
+location '/user/cloudera/lyftdata'
+
+
+create external table uber (localizeddisplayname string, highestimate float, lowestimate float, minimumfare float, duration int, displayname string,
+  productid string,surge_multiplier float,currencyCode string, distance float, currentDate timestamp)
+  row format delimited fields terminated by ','
+  location '/user/cloudera/uberdata'

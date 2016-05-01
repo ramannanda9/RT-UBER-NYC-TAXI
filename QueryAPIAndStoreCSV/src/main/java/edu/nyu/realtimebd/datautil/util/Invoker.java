@@ -16,6 +16,7 @@ import java.io.File;
 
 import java.io.IOException;
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.*;
 
@@ -160,9 +161,10 @@ public class Invoker {
         LocalDateTime localDateTime=Instant.ofEpochMilli(locationAndTime.getJourneyStartTime().getTime()).atZone( ZoneId.systemDefault()).toLocalDateTime();
         LocalDateTime now=LocalDateTime.now();
         LocalDateTime toDateTime=LocalDateTime.of( now.getYear(),now.getMonthValue(),now.getDayOfMonth() , localDateTime.getHour(), localDateTime.getMinute(), localDateTime.getSecond());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         if(prices!=null){
             for(Price price:prices){
-                price.setCurrentDate(Date.from(toDateTime.atZone(ZoneId.systemDefault()).toInstant()));
+                price.setCurrentDate(formatter.format(toDateTime.atZone(ZoneId.systemDefault()).toInstant()));
                 csvUtilUber.writeRecordToFile(price);
             }
         }
@@ -187,9 +189,10 @@ public class Invoker {
         LocalDateTime localDateTime=Instant.ofEpochMilli(locationAndTime.getJourneyStartTime().getTime()).atZone( ZoneId.systemDefault()).toLocalDateTime();
         LocalDateTime now=LocalDateTime.now();
         LocalDateTime toDateTime=LocalDateTime.of( now.getYear(),now.getMonthValue(),now.getDayOfMonth() , localDateTime.getHour(), localDateTime.getMinute(), localDateTime.getSecond());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         if(costEstimates!=null){
             for(CostEstimate estimate:costEstimates){
-                estimate.setCurrentDate(Date.from(toDateTime.atZone(ZoneId.systemDefault()).toInstant()));
+                estimate.setCurrentDate(formatter.format(toDateTime.atZone(ZoneId.systemDefault()).toInstant()));
                 csvUtilLyft.writeRecordToFile(estimate);
             }
         }

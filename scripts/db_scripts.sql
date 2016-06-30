@@ -21,7 +21,7 @@ create table nyc_taxi_data_limited(
 
 )
 
-#Top-N Subquery selects first 500 records per hour for a day
+/*Top-N Subquery selects first 500 records per hour for a day*/
 insert into nyc_taxi_data_limited  select VendorID, tpep_pickup_datetime , tpep_dropoff_datetime , passenger_count ,trip_distance ,pickup_longitude ,pickup_latitude,RateCodeID ,store_and_fwd_flag  ,dropoff_longitude ,dropoff_latitude ,payment_type ,fare_amount ,extra,mta_tax ,tip_amount,tolls_amount,improvement_surcharge,total_amount from ( select *,
 row_number() over (partition by trunc(cast(tpep_pickup_datetime as timestamp), 'HH') order by trunc(cast(tpep_pickup_datetime as timestamp), 'HH') desc)
 as rownumb from nyc_taxi_data where cast(tpep_pickup_datetime as timestamp) between cast('2015-01-01 00:00:00' as timestamp) and cast('2015-01-02 00:00:00' as timestamp)

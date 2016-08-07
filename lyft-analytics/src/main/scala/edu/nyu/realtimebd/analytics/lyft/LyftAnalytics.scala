@@ -35,7 +35,12 @@ import edu.nyu.realtimebd.analytics.lyft.domain.LyftDomain.LyftParams
 import org.apache.spark.sql.types.IntegerType
 import org.apache.spark.sql.types.FloatType
 import org.apache.spark.ml.regression.LinearRegressionModel
-
+/**
+ * @author Ramandeep Singh
+ * The workhorse class it trains on training data and then saves the models
+ * which can then be utilized later on to do fare prediction
+ * All the models are stored as sequence files on local machine.
+ */
 object LyftAnalytics {
 
   val sparkConf = new SparkConf().setAppName("Lyft-ANALYSIS").setMaster("local")
@@ -44,7 +49,7 @@ object LyftAnalytics {
   val hiveCtxt = new HiveContext(sc)
   var df: DataFrame = _
   def initializeDataFrame(query: String): DataFrame = {
-    //cache the dataframe
+    //cache the dataframe for performance benefit
     if (df == null) {
       df = hiveCtxt.sql(query).na.drop().cache()
     }
@@ -52,6 +57,13 @@ object LyftAnalytics {
   }
   def preprocessFeatures(df: DataFrame): DataFrame = {
     val stringColumns = Array("name")
+    /** 
+     * Create pipelines for transformations
+     * The need is simple we do not want categorical data to be considered in linear regression and 
+     * we also don't want to consider ordinality so we use StringIndexer and then convert the ordinal values 
+     * that it gives to onehotencoder for creating dummy columns, the encoder automatically drops one column 
+     * to avoid multicolinarity conditions.  
+     */
     var indexModel: PipelineModel = null;
     var oneHotModel: PipelineModel = null;
     try {
@@ -94,6 +106,12 @@ object LyftAnalytics {
     indexedColumns.foreach { colName => df_indexed = df_indexed.drop(colName) }
     df_indexed
   }
+  /**
+   * This method uses the preprocessed dataframe features to train a 5 fold cross validated 
+   * linear regression model with GridSearch for parameter tuning. The scoring and evaluation is done using regressionevaluator.
+   * Training is done on training data and metrics are reported on testing data
+   * The metrics reported are r^2 of the model. r^2 measures the fit of the model. The closer it is to 1, the better the model.  
+   */
   def buildLyftPriceAnalysisModel(query: String) {
     initializeDataFrame(query)
     var df_indexed = preprocessFeatures(df)
@@ -132,6 +150,10 @@ object LyftAnalytics {
     println(lrModel.weights)
     sc.parallelize(Seq(model), 1).saveAsObjectFile("lyft.model")
   }
+  /**
+   * This handy utility method accepts a set of parameters to return the predicted fare.
+   * It either initializes the query and the models or reuses saved models for making the prediction.
+   */
   def predictFare(list: ListBuffer[LyftParams]): DataFrame = {
     var lyftModel: CrossValidatorModel = null;
     try {
@@ -139,12 +161,19 @@ object LyftAnalytics {
     } catch {
       case e: InvalidInputException => println()
     }
+    /**
+     * Only initialize query and models if the sequence file is not present 
+     */
     if (lyftModel == null) {
       buildLyftPriceAnalysisModel("""select  displayname as name,
 journeyduration as duration, distancemiles as distance, cast(regexp_extract(primetimepercentage,'[0-9]*', 0) as int) as primetime, hour(currentDate) as hour, 
 minute(currentDate) as minute , (maxCostCent+minCostCent)/200 as cost from lyft""")
     }
     lyftModel = sc.objectFile[CrossValidatorModel]("lyft.model").first()
+    /*
+     * A custom structtype to help in creation of dataframe with schema as defined here.
+     * This can then be passed to our models for preprocessing and prediction.
+     */
     var schema = StructType(Array(
       StructField("name", StringType, true),
       StructField("duration", IntegerType, true),

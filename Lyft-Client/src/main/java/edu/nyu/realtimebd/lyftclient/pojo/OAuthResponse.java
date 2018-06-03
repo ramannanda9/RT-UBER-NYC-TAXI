@@ -6,48 +6,49 @@ import com.google.gson.annotations.SerializedName;
  * Created by Ramandeep Singh on 14-04-2016.
  */
 public class OAuthResponse {
-    @SerializedName("access_token")
-    private String accessToken;
-    @SerializedName("token_type")
-    private String tokenType;
-    @SerializedName("expires_in")
-    private int expiresIn;
-    @SerializedName("scope")
-    private String scope;
 
-    public String getAccessToken() {
-        return accessToken;
-    }
+  @SerializedName("access_token")
+  private String accessToken;
+  @SerializedName("token_type")
+  private String tokenType;
+  @SerializedName("expires_in")
+  private int expiresIn;
+  @SerializedName("scope")
+  private String scope;
 
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
-    }
+  public String getAccessToken() {
+    return accessToken;
+  }
 
-    public String getTokenType() {
-        return tokenType;
-    }
+  public void setAccessToken(String accessToken) {
+    this.accessToken = accessToken;
+  }
 
-    public void setTokenType(String tokenType) {
-        this.tokenType = tokenType;
-    }
+  public String getTokenType() {
+    return tokenType;
+  }
 
-    public int getExpiresIn() {
-        return expiresIn;
-    }
+  public void setTokenType(String tokenType) {
+    this.tokenType = tokenType;
+  }
 
-    public void setExpiresIn(int expiresIn) {
-        this.expiresIn = expiresIn;
-    }
+  public int getExpiresIn() {
+    return expiresIn;
+  }
 
-    public String getScope() {
-        return scope;
-    }
+  public void setExpiresIn(int expiresIn) {
+    this.expiresIn = expiresIn;
+  }
 
-    public void setScope(String scope) {
-        this.scope = scope;
-    }
+  public String getScope() {
+    return scope;
+  }
 
-    public OAuthResponse() {
+  public void setScope(String scope) {
+    this.scope = scope;
+  }
 
-    }
+  public OAuthResponse() {
+
+  }
 }

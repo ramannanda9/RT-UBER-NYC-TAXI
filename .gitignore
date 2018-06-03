@@ -40,4 +40,6 @@ uber-analytics/result.txt~
 uber-analytics/target/
 nyc-yellow-taxi-analytics/results.txt~
 QueryAPIAndStoreCSV/QueryAPIAndStoreCSV.iml
+**/.DS_Store
+**/out
 nyc-yellow-taxi-analytics/.settings/org.scala-ide.sdt.core.prefs

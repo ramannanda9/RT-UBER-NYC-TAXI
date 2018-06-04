@@ -1,11 +1,17 @@
 # RT-UBER-NYC-TAXI
+#### What's New (06/04/2018)
+* All the API's i.e. UBER, LYFT and QueryAPIandStoreCSV have been rewritten to use RXJava2 constructs ``Flowable`` ``Single`` with retry support and ``delaying`` of stream errors.
+* Requests are scheduled on ``Schedulers.io()``.
+* No messy ``Executors`` or ``Callback`` hell.
+
+#### General Information
 * This project contains the code to query *Uber API* for price information.
 * This project contains the code for the *lyft API*.
 * It also contains the code for *MLLIB and SPARK* to build predictive models  
 * The directories contain specific code data contains data (obtained from uber and lyft)
-* lyft-client contains java code to invoke LYFT API
-* uber-client contains java code to invoke Uber API
-* QueryAPIandStoreCSV contains the code to invoke both Uber and Lyft API in parallel using Executors and Futures
+* lyft-client contains java code to invoke LYFT API. It has support for rate limiting.
+* uber-client contains java code to invoke Uber API. It has support for rate limiting.
+* QueryAPIandStoreCSV contains the code to invoke both Uber and Lyft API in parallel
 * flume contains flume script.
 * lyft-analytics contains spark and mllib analytics code on lyft datasource
 * uber-analytics contains spark and mllib analytics code on uber datasource
@@ -14,7 +20,7 @@
 * scripts contains hive and impala queries used for filtering the data.
 
 
-#Running the code
+#### Running the code
 
 * To test uber and lyft api's you can run the main class in lyft-client(LyftClientUtilTest.java) or uber-client(UberClientUtil.java). These jars are not runnable.
 * Remember you still have to add the values for property keys in resources folder of each client.

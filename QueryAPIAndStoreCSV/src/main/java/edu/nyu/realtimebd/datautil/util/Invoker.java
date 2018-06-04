@@ -119,11 +119,12 @@ public class Invoker {
       @Override
       public void onSubscribe(Subscription s) {
         subscription = s;
-        s.request(10);
+        s.request(1);
       }
 
       @Override
       public void onNext(LocationAndTime locationAndTime) {
+        logger.debug("Executing request for locationAndTime {}", locationAndTime);
         if (single) {
           if (onlyLyft) {
             Invoker.queryLyftTaskAndStore(locationAndTime, lyftClient);
@@ -136,9 +137,9 @@ public class Invoker {
               fromAction(() -> Invoker.queryUberAndStore(locationAndTime, uberClient));
           Completable lyftCall = Completable
               .fromAction(() -> Invoker.queryLyftTaskAndStore(locationAndTime, lyftClient));
-          uberCall.mergeWith(lyftCall).retry(2).subscribeOn(Schedulers.io()).subscribe();
+          uberCall.mergeWith(lyftCall).subscribe();
         }
-        subscription.request(10);
+        subscription.request(1);
       }
 
       @Override
@@ -193,14 +194,14 @@ public class Invoker {
         .of(now.getYear(), now.getMonthValue(), now.getDayOfMonth(), origTime.getHour(),
             origTime.getMinute(), origTime.getSecond());
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-    uberClient.getPriceRequest(requestMap).map(p -> {
-      List<Price> prices = p.getPrices();
+    uberClient.getPriceRequest(requestMap).subscribe((pr) -> {
+      List<Price> prices = pr.getPrices();
       prices.forEach(price -> {
         price.setCurrentDate(formatter.format(toDateTime));
+        logger.debug(price.toString());
         csvUtilUber.writeRecordToFile(price);
       });
-      return "";
-    }).subscribe();
+    }, throwable -> logger.error("Error occurred", throwable));
   }
 
   /**
@@ -222,14 +223,15 @@ public class Invoker {
         .of(now.getYear(), now.getMonthValue(), now.getDayOfMonth(), origTime.getHour(),
             origTime.getMinute(), origTime.getSecond());
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-    lyftClient.getCostEstimate(requestMap).map(costEstimates -> {
-      List<CostEstimate> costEstimateList = costEstimates.getCostEstimates();
-      costEstimateList.forEach(costEstimate -> {
-        costEstimate.setCurrentDate(formatter.format(toDateTime));
-        csvUtilLyft.writeRecordToFile(costEstimate);
-      });
-      return "";
-    }).subscribe();
+    lyftClient.getCostEstimate(requestMap).subscribeOn(Schedulers.io()).subscribe(costEstimates -> {
+          List<CostEstimate> costEstimateList = costEstimates.getCostEstimates();
+          costEstimateList.forEach(costEstimate -> {
+            costEstimate.setCurrentDate(formatter.format(toDateTime));
+            logger.debug(costEstimate.toString());
+            csvUtilLyft.writeRecordToFile(costEstimate);
+          });
+        }, throwable -> logger.error("Error occurred ", throwable)
+    );
   }
 
 

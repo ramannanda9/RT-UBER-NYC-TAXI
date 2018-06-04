@@ -110,10 +110,10 @@ public class Invoker {
         .flatMap(locationAndTime -> Single
             .timer(
                 getSecondsFromNow(locationAndTime),
-                TimeUnit.SECONDS, Schedulers.io())
+                TimeUnit.SECONDS)
             .zipWith(Single.just(locationAndTime), (t, lt) -> lt).toFlowable()
         );
-    timedEvents.subscribe(new Subscriber<LocationAndTime>() {
+    timedEvents.subscribeOn(Schedulers.io()).subscribe(new Subscriber<LocationAndTime>() {
       Subscription subscription = null;
 
       @Override

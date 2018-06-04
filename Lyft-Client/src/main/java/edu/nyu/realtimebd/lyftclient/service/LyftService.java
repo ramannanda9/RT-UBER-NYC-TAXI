@@ -18,7 +18,7 @@ public interface LyftService {
    * The method to obtain the oauth access token.
    *
    * @param request The request
-   * @return OAuthResponse token, expiry, token_type and scope
+   * @return {@code Single<OAuthResponse>} token, expiry, token_type and scope
    * @see edu.nyu.realtimebd.lyftclient.pojo.OAuthRequest
    * @see edu.nyu.realtimebd.lyftclient.pojo.OAuthResponse
    */

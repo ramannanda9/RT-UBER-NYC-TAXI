@@ -1,6 +1,7 @@
 package edu.nyu.realtimebd.datautil.pojo;
 
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -11,13 +12,13 @@ public class LocationAndTime {
     private float startLongitude;
     private float endLatitude;
     private float endLongitude;
-    private Date journeyStartTime;
+    private LocalDateTime journeyStartTime;
 
-    public Date getJourneyStartTime() {
+    public LocalDateTime getJourneyStartTime() {
         return journeyStartTime;
     }
 
-    public void setJourneyStartTime(Date journeyStartTime) {
+    public void setJourneyStartTime(LocalDateTime journeyStartTime) {
         this.journeyStartTime = journeyStartTime;
     }
 

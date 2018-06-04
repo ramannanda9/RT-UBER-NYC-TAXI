@@ -8,16 +8,17 @@ import java.util.List;
 public class PricesResult {
 
 
-    private List<Price> prices;
+  private List<Price> prices;
 
-    public PricesResult() {
+  public PricesResult() {
 
-    }
-    public List<Price> getPrices() {
-        return prices;
-    }
+  }
 
-    public void setPrices(List<Price> prices) {
-        this.prices = prices;
-    }
+  public List<Price> getPrices() {
+    return prices;
+  }
+
+  public void setPrices(List<Price> prices) {
+    this.prices = prices;
+  }
 }

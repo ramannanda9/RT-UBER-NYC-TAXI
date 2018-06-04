@@ -25,9 +25,10 @@ jar {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
     compile 'ch.qos.logback:logback-classic:1.1.2'
-    compile 'org.apache.commons:commons-csv:1.2'
+    compile group: 'org.apache.commons', name: 'commons-csv', version: '1.5'
     compile 'commons-cli:commons-cli:1.3.1'
     compile 'commons-codec:commons-codec:1.10'
+    compile 'io.reactivex.rxjava2:rxjava:2.1.0'
     compile project(':Lyft-Client')
     compile project(':UberAPIIntegration')
 

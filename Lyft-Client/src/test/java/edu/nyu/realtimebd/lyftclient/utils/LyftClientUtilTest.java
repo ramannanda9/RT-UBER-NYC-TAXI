@@ -37,7 +37,8 @@ public class LyftClientUtilTest {
     costRequestMap.put("endLongitude", -122.4533f);
     costRequestList.add(costRequestMap);
     costRequestList.add(costRequestMap);
-    Flowable<CostEstimates> pricesResults = clientUtil.getCostEstimates(costRequestList, true);
+    Flowable<CostEstimates> pricesResults = clientUtil
+        .getCostEstimates(Flowable.fromIterable(costRequestList), true);
     pricesResults.map(CostEstimates::getCostEstimates).
         subscribe(new Subscriber<List<CostEstimate>>() {
           @Override

@@ -118,6 +118,7 @@ public class Invoker {
 
       @Override
       public void onSubscribe(Subscription s) {
+        logger.info("Subscribing");
         subscription = s;
         s.request(1);
       }
@@ -140,6 +141,7 @@ public class Invoker {
           uberCall.mergeWith(lyftCall).subscribe();
         }
         subscription.request(1);
+        logger.debug("Requesting one more");
       }
 
       @Override
@@ -223,7 +225,7 @@ public class Invoker {
         .of(now.getYear(), now.getMonthValue(), now.getDayOfMonth(), origTime.getHour(),
             origTime.getMinute(), origTime.getSecond());
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-    lyftClient.getCostEstimate(requestMap).subscribeOn(Schedulers.io()).subscribe(costEstimates -> {
+    lyftClient.getCostEstimate(requestMap).subscribe(costEstimates -> {
           List<CostEstimate> costEstimateList = costEstimates.getCostEstimates();
           costEstimateList.forEach(costEstimate -> {
             costEstimate.setCurrentDate(formatter.format(toDateTime));

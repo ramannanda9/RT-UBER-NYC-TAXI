@@ -106,14 +106,13 @@ public class Invoker {
             ))
         .filter(
             locationAndTime -> getSecondsFromNow(locationAndTime) > 0
-        )
-        .flatMap(locationAndTime -> Single
-            .timer(
-                getSecondsFromNow(locationAndTime),
-                TimeUnit.SECONDS)
-            .zipWith(Single.just(locationAndTime), (t, lt) -> lt).toFlowable()
-        );
-    timedEvents.subscribeOn(Schedulers.io()).subscribe(new Subscriber<LocationAndTime>() {
+        ).flatMap(locationAndTime -> Single
+                .timer(
+                    getSecondsFromNow(locationAndTime),
+                    TimeUnit.SECONDS)
+                .zipWith(Single.just(locationAndTime), (t, lt) -> lt).toFlowable()
+            , 2);
+    timedEvents.subscribe(new Subscriber<LocationAndTime>() {
       Subscription subscription = null;
 
       @Override
@@ -125,20 +124,23 @@ public class Invoker {
 
       @Override
       public void onNext(LocationAndTime locationAndTime) {
-        logger.debug("Executing request for locationAndTime {}", locationAndTime);
         if (single) {
           if (onlyLyft) {
-            Invoker.queryLyftTaskAndStore(locationAndTime, lyftClient);
+            Completable
+                .fromAction(() -> Invoker.queryLyftTaskAndStore(locationAndTime, lyftClient))
+                .subscribeOn(Schedulers.io()).subscribe();
           }
           if (onlyUber) {
-            Invoker.queryUberAndStore(locationAndTime, uberClient);
+            Completable.
+                fromAction(() -> Invoker.queryUberAndStore(locationAndTime, uberClient))
+                .subscribeOn(Schedulers.io()).subscribe();
           }
         } else {
           Completable uberCall = Completable.
               fromAction(() -> Invoker.queryUberAndStore(locationAndTime, uberClient));
           Completable lyftCall = Completable
               .fromAction(() -> Invoker.queryLyftTaskAndStore(locationAndTime, lyftClient));
-          uberCall.mergeWith(lyftCall).subscribe();
+          uberCall.mergeWith(lyftCall).subscribeOn(Schedulers.io()).subscribe();
         }
         subscription.request(1);
         logger.debug("Requesting one more");
